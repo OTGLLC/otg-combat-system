@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     [RequireComponent(typeof(BoxCollider))]
     public class OTGTargetingController : MonoBehaviour

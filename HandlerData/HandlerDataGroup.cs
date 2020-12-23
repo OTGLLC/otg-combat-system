@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     [CreateAssetMenu(menuName = OTGCombatUtilities.DataGroupPath+ "HandlerDataGroup", fileName ="HandlerDataGroup")]
     public class HandlerDataGroup : ScriptableObject

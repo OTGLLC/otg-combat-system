@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     [RequireComponent(typeof(BoxCollider))]
     public class OTGHitColliderController : MonoBehaviour

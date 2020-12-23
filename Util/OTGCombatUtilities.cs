@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     public enum E_NewCombatStateTemplate
     {

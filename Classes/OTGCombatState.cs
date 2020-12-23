@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
  
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     [CreateAssetMenu(menuName =OTGCombatUtilities.CombatStatePath,fileName ="OTGCombatState")]
     public class OTGCombatState : ScriptableObject

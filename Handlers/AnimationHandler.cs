@@ -2,7 +2,7 @@
 using UnityEngine.Playables;
 using UnityEngine.Animations;
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     public class AnimationHandler
     {

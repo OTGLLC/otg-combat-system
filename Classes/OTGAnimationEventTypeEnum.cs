@@ -1,4 +1,4 @@
-﻿namespace OTG.CombatSM.Core
+﻿namespace OTG.CombatSystem
 {
     public enum OTGAnimationEventTypeEnum
     {

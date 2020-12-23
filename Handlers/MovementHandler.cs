@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     public class MovementHandler
     {

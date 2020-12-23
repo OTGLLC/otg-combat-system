@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace OTG.CombatSM.Core
+namespace OTG.CombatSystem
 {
     [CreateAssetMenu]
     public class OTGAnimationEvent : ScriptableObject
