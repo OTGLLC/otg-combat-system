@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 
@@ -22,8 +21,8 @@ namespace OTG.CombatSystem.Editor
         [SerializeField] private string m_characterSavedGraphsPath;
         public string CharacterSavedGraphsPath { get { return m_characterSavedGraphsPath; } }
 
-        //[SerializeField] private OTGGlobalCombatConfig m_globalCombatConfig;
-        //public OTGGlobalCombatConfig GlobalCombatConfig { get { return m_globalCombatConfig; } }
+        [SerializeField] private OTGGlobalCombatConfig m_globalCombatConfig;
+        public OTGGlobalCombatConfig GlobalCombatConfig { get { return m_globalCombatConfig; } }
         
     }
 

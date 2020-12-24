@@ -1,3 +1,16 @@
 {
-	"name": "OTG.CombatSystem.Editor"
+    "name": "OTG.CombatSystem.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1b760e247a0b5db4d9cd1098b377b628"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -1,0 +1,16 @@
+#main-window
+{
+    display: flex;
+    flex-direction:row;
+    flex-grow:1;
+}
+#left-panel {
+    flex: .5;
+    border-color: black;
+    border-width: 1px;
+    flex-grow: 1;
+}
+#right-panel {
+    flex: .5;
+    flex-grow: 1;
+}
