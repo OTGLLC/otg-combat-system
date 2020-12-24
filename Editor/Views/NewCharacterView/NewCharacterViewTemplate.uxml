@@ -6,6 +6,6 @@
     xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
 >
   <engine:VisualElement name="new-character-view">
-    <engine:Label text="new character view"/>
+   
   </engine:VisualElement>
 </engine:UXML>
