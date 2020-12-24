@@ -5,14 +5,9 @@
     xmlns:editor="UnityEditor.UIElements"
     xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
 >
-  <engine:VisualElement name ="main-window">
-    <engine:VisualElement name ="left-panel">
-      <engine:VisualElement name="top"/>
-      <engine:VisualElement name="middle"/>
-      <engine:VisualElement name ="bottom"/>
-    </engine:VisualElement>
-    <engine:VisualElement name="right-panel">
-      
+  <engine:VisualElement name="editor-window">
+    <editor:Toolbar name="editor-menu-toolbar"/>
+    <engine:VisualElement name ="main-window">
     </engine:VisualElement>
   </engine:VisualElement>
   
