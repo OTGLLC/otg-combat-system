@@ -1,8 +1,8 @@
 
 using UnityEditor;
 using UnityEngine.UIElements;
+using UnityEngine.Events;
 using UnityEngine;
-using System;
 
 namespace OTG.CombatSystem.Editor
 {
@@ -18,6 +18,8 @@ namespace OTG.CombatSystem.Editor
         protected string m_stylePath;
         protected VisualElement m_containerElement;
         protected SubView m_currentSubView;
+        protected Object[] m_draggedItems = new Object[1];
+        protected bool m_GotMouseDown;
         #endregion
 
 
@@ -76,6 +78,42 @@ namespace OTG.CombatSystem.Editor
         protected virtual void HandleSubviewCompletedEvent()
         {
 
+        }
+        protected void AddCallbacksToListView(ref ListView _targetList)
+        {
+            if (_targetList == null)
+                return;
+
+            _targetList.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
+            _targetList.RegisterCallback<MouseMoveEvent>(OnMouseMoveEvent);
+            _targetList.RegisterCallback<MouseUpEvent>(OnMouseUpEvent);
+        }
+        protected void RemoveCallbacksFromListView(ref ListView _targetList)
+        {
+            if (_targetList == null)
+                return;
+
+            _targetList.UnregisterCallback<MouseDownEvent>(OnMouseDownEvent);
+            _targetList.UnregisterCallback<MouseMoveEvent>(OnMouseMoveEvent);
+            _targetList.UnregisterCallback<MouseUpEvent>(OnMouseUpEvent);
+        }
+        protected void OnMouseDownEvent(MouseDownEvent e)
+        {
+            m_GotMouseDown = true;
+        }
+        protected void OnMouseMoveEvent(MouseMoveEvent e)
+        {
+            if (m_GotMouseDown && e.pressedButtons == 1)
+            {
+
+                DragAndDrop.PrepareStartDrag();
+                DragAndDrop.objectReferences = m_draggedItems;
+                DragAndDrop.StartDrag("ActionDrag");
+            }
+        }
+        protected void OnMouseUpEvent(MouseUpEvent e)
+        {
+            m_GotMouseDown = false;
         }
         #endregion
 

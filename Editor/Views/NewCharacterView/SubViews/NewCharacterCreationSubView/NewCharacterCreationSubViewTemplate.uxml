@@ -6,6 +6,35 @@
     xsi:noNamespaceSchemaLocation="../../../../../../../../UIElementsSchema/UIElements.xsd"
 >
   <engine:VisualElement name="new-character-creation-subview">
+    <engine:VisualElement name="new-character-creation-workarea">
+      <engine:VisualElement name="new-character-data-sheet">
+        <engine:VisualElement name="name-box" class="data-sheet-entry">
+          <engine:Label name="name-label" text="Character Name" class ="data-sheet-label"/>
+          <engine:TextField name="name-text-box" class="data-sheet-textbox"/>
+        </engine:VisualElement>
+        <engine:VisualElement name="character-type-box" class="data-sheet-entry">
+          <engine:Label name="character-type-label" text ="Character Type" class ="data-sheet-label"/>
+          <editor:EnumField name="character-type-enum" class="data-sheet-enum" type="OTG.CombatSystem.e_CombatantType, OTG.CombatSystem"/>
+        </engine:VisualElement>
+        <engine:VisualElement name="model-box" class="data-sheet-entry">
+          <engine:Label name="model-label" text="Character Model Name" class ="data-sheet-label"/>
+          <engine:Label name="model-label-text" class="data-sheet-labelText"/>
+        </engine:VisualElement>
+        <engine:VisualElement name="avatar-box" class="data-sheet-entry">
+          <engine:Label name="avatar-label" text="Character Avatar Name" class ="data-sheet-label"/>
+          <engine:Label name="avatar-label-text" class="data-sheet-labelText"/>
+        </engine:VisualElement>
+      </engine:VisualElement>
+      
+      <engine:VisualElement name="object-import-workarea">
+        <engine:Box name="object-import-dropbox">
+          
+        </engine:Box>
+        <engine:ListView name="models-list-view">
+          
+        </engine:ListView>
+      </engine:VisualElement>
+    </engine:VisualElement>
     <engine:Button name ="finished-character-creation" text="Finished Creating Character"/>
   </engine:VisualElement>
 </engine:UXML>

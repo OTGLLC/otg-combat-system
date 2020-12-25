@@ -1,1 +1,67 @@
-VisualElement {}
+#new-character-creation-subview
+{
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+}
+
+#new-character-creation-workarea
+{
+    flex:.95;
+    flex-grow:1;
+    display:flex;
+    flex-direction:row;
+}
+#new-character-data-sheet
+{
+    flex:.6;
+    border-right-width:1px;
+    border-color:black;
+}
+.data-sheet-entry
+{
+    display:flex;
+    flex-direction:row;
+    border-bottom-width:5px;
+}
+.data-sheet-label
+{
+    flex:.3;
+}
+.data-sheet-textbox
+{
+    flex:.7;
+}
+.data-sheet-enum
+{
+    flex:.7;
+}
+.data-sheet-toolbarmenu
+{
+    flex:.7;
+}
+.data-sheet-labelText{
+    flex:.7;
+}
+#object-import-workarea {
+    flex: .4;
+    display:flex;
+    flex-direction:column;
+}
+#finished-character-creation {
+    flex: .05;
+}
+#object-import-dropbox {
+    flex: .2;
+
+}
+#avatars-list-view
+{
+    flex:.4;
+}
+#models-list-view {
+    flex: .4;
+    border-bottom-width: 1px;
+    border-top-width:1px;
+    border-color: black;
+}

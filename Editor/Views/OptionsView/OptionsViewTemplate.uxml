@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
+>
+  <engine:VisualElement name="options-view">
+    <editor:Toolbar name="character-data-bar" class ="options-toolbar">
+      <engine:Label text="Character Data Folder" class ="options-toolbar-label"/>
+      <engine:Label name="character-data-path" class="options-toolbar-path-label"/>
+      <editor:ToolbarButton name="character-data-path-button" class ="options-toolbar-button" text="Browse"/>
+    </editor:Toolbar>
+    <editor:Toolbar name="saved-graphs-data-bar" class ="options-toolbar">
+      <engine:Label text="Saved Graphs Data Folder" class ="options-toolbar-label"/>
+      <engine:Label name="saved-graphs-data-path" class="options-toolbar-path-label"/>
+      <editor:ToolbarButton name="saved-graphs-data-path-button" class ="options-toolbar-button" text="Browse"/>
+    </editor:Toolbar>
+    <editor:Toolbar name="actions-data-bar" class ="options-toolbar">
+      <engine:Label text="Actions Data Folder" class ="options-toolbar-label"/>
+      <engine:Label name="actions-data-path" class="options-toolbar-path-label"/>
+      <editor:ToolbarButton name="actions-data-path-button" class ="options-toolbar-button" text="Browse"/>
+    </editor:Toolbar>
+    <editor:Toolbar name="transitions-data-bar" class ="options-toolbar">
+      <engine:Label text="Transitions Data Folder" class ="options-toolbar-label"/>
+      <engine:Label name="transitions-data-path" class="options-toolbar-path-label"/>
+      <editor:ToolbarButton name="transitions-data-path-button" class ="options-toolbar-button" text="Browse"/>
+    </editor:Toolbar>
+  </engine:VisualElement>
+    
+</engine:UXML>

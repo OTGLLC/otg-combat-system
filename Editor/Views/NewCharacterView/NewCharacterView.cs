@@ -45,7 +45,11 @@ namespace OTG.CombatSystem.Editor
             }
                 
         }
-
+        public override void UpdateViewHeight(float _height)
+        {
+            base.UpdateViewHeight(_height);
+            m_currentSubView.UpdateViewHeight(_height);
+        }
         #endregion
 
         #region Utility

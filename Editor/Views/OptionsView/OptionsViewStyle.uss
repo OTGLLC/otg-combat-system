@@ -1,0 +1,19 @@
+.options-toolbar
+{
+    display:flex;
+    flex-direction:row;
+}
+.options-toolbar-label
+{
+    align-content:center;
+    flex:.2;
+}
+.options-toolbar-path-label
+{
+    flex:.7;
+    background-color:rgb(50, 50, 50);
+}
+.options-toolbar-button
+{
+    flex:.1;
+}
