@@ -10,6 +10,7 @@ namespace OTG.CombatSystem.Editor
         #region COnstants
         private const string k_templatePath = "Assets/Submodules/otg-combat-system/Editor/MainWindows/OTGCombatSystemEditorTemplate.uxml";
         private const string k_stylePath = "Assets/Submodules/otg-combat-system/Editor/MainWindows/OTGCombatSystemEditorStyle.uss";
+        private const string k_characterLibraryPath = "Assets/Submodules/otg-combat-system/Editor";
         #endregion
 
         #region Views
@@ -37,10 +38,12 @@ namespace OTG.CombatSystem.Editor
         #region Unity API
         private void OnEnable()
         {
+
             InitializeLayout();
             InitializeStyleSheet();
             CreateViews();
             BuildToolbarMenu();
+            InitializeCharacterLibrary();
 
             SwitchViews(m_characterStateGraphView);
         }
@@ -57,6 +60,11 @@ namespace OTG.CombatSystem.Editor
         #endregion
 
         #region Utility
+        private void InitializeCharacterLibrary()
+        {
+            OTGCombatEditorUtilis.InitializeCharacterLibrary(k_characterLibraryPath);
+
+        }
         private void InitializeLayout()
         {
             VisualTreeAsset layout = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(k_templatePath);

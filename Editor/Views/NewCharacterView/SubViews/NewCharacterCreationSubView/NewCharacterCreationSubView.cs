@@ -42,9 +42,10 @@ namespace OTG.CombatSystem.Editor
         }
         protected override void HandlerViewLostFocus()
         {
-            CleanupDataEntryFields();
             RemoveCallbacks();
             RemoveSelectionChangedFromListViews();
+            CleanupDataEntryFields();
+            
 
             m_charCreationData.Cleanup();
             m_charCreationData = null;

@@ -18,24 +18,31 @@ namespace OTG.CombatSystem.Editor
         public List<string> AvailableAvatarsPaths { get; private set; }
         #endregion
 
+        #region Fields
+        private OptionsViewData m_optionsViewData;
+        #endregion
+
         #region Public API
 
         public NewCharacterCreationData()
         {
+            InstantiateOptionsViewData();
             FindAvailableModels();
             FindAvatars();
         }
         public void Refresh()
         {
+            InstantiateOptionsViewData();
             FindAvailableModels();
             FindAvatars();
         }
         public void CreateCharacter()
         {
-            
+            OTGCombatEditorUtilis.CreateCharacter(this, m_optionsViewData);
         }
         public void Cleanup()
         {
+            CleanupOptionsViewData();
             AvailableModelsPaths = null;
             AvailableAvatarsPaths = null;
         }
@@ -55,6 +62,19 @@ namespace OTG.CombatSystem.Editor
         #endregion
 
         #region Utility
+        private void InstantiateOptionsViewData()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:OptionsViewData");
+            for(int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                m_optionsViewData = AssetDatabase.LoadAssetAtPath<OptionsViewData>(path);
+            }
+        }
+        private void CleanupOptionsViewData()
+        {
+            m_optionsViewData = null;
+        }
         private void FindAvailableModels()
         {
             string[] guids = AssetDatabase.FindAssets(" model t:Model");
@@ -77,7 +97,7 @@ namespace OTG.CombatSystem.Editor
         #endregion
 
         #region Creation Factory
-
+        
         #endregion
 
         public static string GetDisplayName(string _path)

@@ -6,6 +6,20 @@
     xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
 >
   <engine:VisualElement name="character-stategraph-view">
-    <engine:Label text="State Graph View"/>
+    <engine:VisualElement name="graph-area"/>
+    <engine:VisualElement name="data-area">
+      <engine:VisualElement name="character-list-area">
+        <editor:Toolbar name="character-list-toolbar">
+          <editor:ToolbarButton name="project-list-button" text="Project"/>
+          <editor:ToolbarButton name="scene-list-button" text="Scene"/>
+          <editor:ToolbarButton name="new-character-button" text="New"/>
+          <editor:ToolbarButton name="delete-character-button" text="Delete"/>
+        </editor:Toolbar>
+        <engine:ListView name="character-list-view"></engine:ListView>
+      </engine:VisualElement>
+      <engine:VisualElement name="contextual-data-area">
+        
+      </engine:VisualElement>
+    </engine:VisualElement>
   </engine:VisualElement>
 </engine:UXML>

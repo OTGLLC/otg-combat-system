@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d872fa68a71bd54c9527d44fa03102f, type: 3}
   m_Name: OptionsViewData
   m_EditorClassIdentifier: 
-  m_characterDataPath: 
-  m_savedGraphsPath: 
-  m_actionsPath: 
-  m_transitionsPath: 
+  m_characterDataPath: Assets/never-look-bak_game/CombatSystem/CharacterData
+  m_savedGraphsPath: Assets/Submodules/otg-combat-system/Editor/Data/CharacterSavedGraphs
+  m_actionsPath: Assets/Submodules/otg-combat-system/Data/Actions
+  m_transitionsPath: Assets/Submodules/otg-combat-system/Data/Transitions

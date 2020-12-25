@@ -1,1 +1,31 @@
-VisualElement {}
+#character-stategraph-view
+{
+    display:flex;
+    flex-direction: column;
+}
+#graph-area
+{
+    flex:.8;
+    border-bottom-width:1px;
+    border-color:black;
+}
+#data-area
+{
+    display: flex;
+    flex-direction:row;
+    flex:.2;
+}
+#character-list-area
+{
+    flex:.3;
+    border-right-width:1px;
+    border-color:black;
+}
+#contextual-data-area
+{
+    flex:.6;
+}
+#character-list-view
+{
+    flex-grow:1;
+}
