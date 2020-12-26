@@ -16,10 +16,13 @@ namespace OTG.CombatSystem.Editor
         public string SelectedModelPath { get; set; }
         public  List<string> AvailableModelsPaths { get; private set; }
         public List<string> AvailableAvatarsPaths { get; private set; }
+       
         #endregion
 
         #region Fields
         private OptionsViewData m_optionsViewData;
+        private GameObject m_characterGameObject;
+        private SerializedObject m_combatSMC;
         #endregion
 
         #region Public API
@@ -38,7 +41,15 @@ namespace OTG.CombatSystem.Editor
         }
         public void CreateCharacter()
         {
-            OTGCombatEditorUtilis.CreateCharacter(this, m_optionsViewData);
+            OTGCombatEditorUtilis.CreateCharacterData(this, m_optionsViewData);
+            CreateCharacterGameObject();
+            AttachCombatController();
+            FocusOnAddedCharacter();
+            CreateAndAttachHandlerDataGroup();
+            LinkGlobalCombatConfig();
+            CreateInitialState();
+            ApplyCharacterModel();
+            ApplyCharacterType();
         }
         public void Cleanup()
         {
@@ -97,7 +108,70 @@ namespace OTG.CombatSystem.Editor
         #endregion
 
         #region Creation Factory
-        
+        private void CreateCharacterGameObject()
+        {
+            m_characterGameObject = new GameObject(CharacterName);
+            m_characterGameObject.transform.position = Vector3.zero;
+
+
+        }
+        private void AttachCombatController()
+        {
+            
+            m_characterGameObject.AddComponent<OTGCombatSMC>();
+            m_combatSMC = new SerializedObject(m_characterGameObject.GetComponent<OTGCombatSMC>());
+        }
+        private void FocusOnAddedCharacter()
+        {
+            Selection.activeObject = m_characterGameObject;
+            SceneView.FrameLastActiveSceneViewWithLock();
+        }
+        private void CreateAndAttachHandlerDataGroup()
+        {
+            HandlerDataGroup dataGrp = ScriptableObject.CreateInstance<HandlerDataGroup>();
+            dataGrp.name = CharacterName + "_HanderDataGroup";
+
+            string path = OTGCombatEditorUtilis.GetCharacterConfigurationsFolder(CharacterName, m_optionsViewData.CharacterDataPath);
+            AssetDatabase.CreateAsset(dataGrp, path + dataGrp.name + ".asset");
+
+            m_combatSMC.FindProperty("m_handlerDataGroup").objectReferenceValue = dataGrp;
+            m_combatSMC.ApplyModifiedProperties();
+        }
+        private void LinkGlobalCombatConfig()
+        {
+            m_combatSMC.FindProperty("m_globalConfig").objectReferenceValue = m_optionsViewData.GlobalCombatConfig;
+            m_combatSMC.ApplyModifiedProperties();
+        }
+        private void CreateInitialState()
+        {
+            OTGCombatState initialState = ScriptableObject.CreateInstance<OTGCombatState>();
+            initialState.name = OTGCombatEditorUtilis.GetCombatStateName(CharacterName, "Inititial");
+
+            string stateFolder = OTGCombatEditorUtilis.GetCharacterStateFolder(CharacterName, m_optionsViewData.CharacterDataPath);
+            string initialStateGUID = AssetDatabase.CreateFolder(stateFolder, "InitialState");
+            string initialStatePath = AssetDatabase.GUIDToAssetPath(initialStateGUID);
+            AssetDatabase.CreateAsset(initialState, initialStatePath + "/" + initialState.name + ".asset");
+
+            m_combatSMC.FindProperty("m_startingState").objectReferenceValue = initialState;
+            m_combatSMC.ApplyModifiedProperties();
+
+        }
+        private void ApplyCharacterType()
+        {
+            m_combatSMC.FindProperty("m_combatantType").enumValueIndex = (int)CharacterType;
+            m_combatSMC.ApplyModifiedProperties();
+        }
+        private void ApplyCharacterModel()
+        {
+            GameObject characterModel = (GameObject)PrefabUtility.InstantiatePrefab(CharacterModel);
+
+            Animator anim = characterModel.GetComponent<Animator>();
+            if (anim != null)
+                GameObject.DestroyImmediate(anim);
+
+            characterModel.transform.SetParent(m_characterGameObject.transform);
+            characterModel.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        }
         #endregion
 
         public static string GetDisplayName(string _path)

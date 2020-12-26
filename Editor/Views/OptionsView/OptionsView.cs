@@ -8,21 +8,20 @@ namespace OTG.CombatSystem.Editor
 {
     public class OptionsView : BaseView
     {
-        #region Constants
-        private const string k_optionsDataPath = "Assets/Submodules/otg-combat-system/Editor";
-        #endregion
-
+      
         #region Fields
         private Label m_characterPath;
         private Label m_savedGraphPath;
         private Label m_actionsPath;
         private Label m_transitionsPath;
+        private Label m_gameDataPath;
 
         private OptionsViewData m_optionsViewData;
         private ToolbarButton m_characterDataButton;
         private ToolbarButton m_savedGraphsButton;
         private ToolbarButton m_actionsButton;
         private ToolbarButton m_transitionsButton;
+        private ToolbarButton m_gameDataButton;
         #endregion
 
 
@@ -56,11 +55,11 @@ namespace OTG.CombatSystem.Editor
             if(optionsDataGuid.Length == 0)
             {
                 m_optionsViewData = ScriptableObject.CreateInstance<OptionsViewData>();
-                AssetDatabase.CreateAsset(m_optionsViewData, k_optionsDataPath + "/OptionsViewData.asset");
+                AssetDatabase.CreateAsset(m_optionsViewData, OTGCombatEditorUtilis.DATAFILE_OPTIONS_VIEW_LOCATION + "/OptionsViewData.asset");
                 return;
             }
 
-            m_optionsViewData = AssetDatabase.LoadAssetAtPath<OptionsViewData>(k_optionsDataPath + "/OptionsViewData.asset");
+            m_optionsViewData = AssetDatabase.LoadAssetAtPath<OptionsViewData>(OTGCombatEditorUtilis.DATAFILE_OPTIONS_VIEW_LOCATION + "/OptionsViewData.asset");
 
 
             SerializedObject optionsObj = new SerializedObject(m_optionsViewData);
@@ -68,6 +67,7 @@ namespace OTG.CombatSystem.Editor
             m_savedGraphPath.text = optionsObj.FindProperty("m_savedGraphsPath").stringValue;
             m_actionsPath.text = optionsObj.FindProperty("m_actionsPath").stringValue;
              m_transitionsPath.text = optionsObj.FindProperty("m_transitionsPath").stringValue;
+            m_gameDataPath.text = optionsObj.FindProperty("m_gameDataPath").stringValue;
 
 
         }
@@ -77,6 +77,9 @@ namespace OTG.CombatSystem.Editor
         }
         private void GatherToolbarButtons()
         {
+            m_gameDataButton = ContainerElement.Q<ToolbarButton>("game-data-path-button");
+            m_gameDataButton.clickable.clicked += OnGameDataFolderButton;
+
             m_characterDataButton = ContainerElement.Q<ToolbarButton>("character-data-path-button");
             m_characterDataButton.clickable.clicked += OnCharacterDataFolderButton;
 
@@ -93,6 +96,7 @@ namespace OTG.CombatSystem.Editor
         private void CleanupToolbarButtons()
         {
             m_characterDataButton.clickable.clicked -= OnCharacterDataFolderButton;
+            m_gameDataButton.clickable.clicked -= OnGameDataFolderButton;
             m_savedGraphsButton.clickable.clicked -= OnSavedGraphFolderButton;
             m_actionsButton.clickable.clicked -= OnActionFolderButton;
             m_transitionsButton.clickable.clicked -= OnTransitionFolderButton;
@@ -101,10 +105,12 @@ namespace OTG.CombatSystem.Editor
             m_savedGraphsButton = null;
             m_actionsButton = null;
             m_transitionsButton = null;
+            m_gameDataButton = null;
         }
         private void GatherLabels()
         {
             m_characterPath = ContainerElement.Q<Label>("character-data-path");
+            m_gameDataPath = ContainerElement.Q<Label>("game-data-path");
             m_savedGraphPath = ContainerElement.Q<Label>("saved-graphs-data-path");
             m_actionsPath = ContainerElement.Q<Label>("actions-data-path");
             m_transitionsPath = ContainerElement.Q<Label>("transitions-data-path");
@@ -116,6 +122,7 @@ namespace OTG.CombatSystem.Editor
             m_actionsPath = null;
             m_characterPath = null;
             m_savedGraphPath = null;
+            m_gameDataPath = null;
         }
         private void ApplyPathSelection(string _path,string _property,Label _targetLabel)
         {
@@ -141,6 +148,11 @@ namespace OTG.CombatSystem.Editor
         {
             string path = OTGCombatEditorUtilis.GetAssetFolderPath(EditorUtility.OpenFolderPanel("Select Character Data Root Folder", "", ""));
             ApplyPathSelection(path, "m_characterDataPath",m_characterPath);
+        }
+        private void OnGameDataFolderButton()
+        {
+            string path = OTGCombatEditorUtilis.GetAssetFolderPath(EditorUtility.OpenFolderPanel("Select Game Data Root Folder", "", ""));
+            ApplyPathSelection(path, "m_gameDataPath", m_gameDataPath);
         }
         private void OnSavedGraphFolderButton()
         {
