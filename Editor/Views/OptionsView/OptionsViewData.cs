@@ -16,6 +16,11 @@ namespace OTG.CombatSystem.Editor
 
         [SerializeField] private string m_transitionsPath;
         public string TransitionsPath { get { return m_transitionsPath; } }
+        [SerializeField] private string m_gameDataPath;
+        public string GameDataPath { get { return m_gameDataPath; } }
+
+        [SerializeField] private OTGGlobalCombatConfig m_globalCombatConfig;
+        public OTGGlobalCombatConfig GlobalCombatConfig { get { return m_globalCombatConfig; } }
 
     }
 }

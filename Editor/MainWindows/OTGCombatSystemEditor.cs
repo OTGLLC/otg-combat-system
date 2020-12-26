@@ -7,11 +7,6 @@ namespace OTG.CombatSystem.Editor
 {
     public class OTGCombatSystemEditor : EditorWindow
     {
-        #region COnstants
-        private const string k_templatePath = "Assets/Submodules/otg-combat-system/Editor/MainWindows/OTGCombatSystemEditorTemplate.uxml";
-        private const string k_stylePath = "Assets/Submodules/otg-combat-system/Editor/MainWindows/OTGCombatSystemEditorStyle.uss";
-        private const string k_characterLibraryPath = "Assets/Submodules/otg-combat-system/Editor";
-        #endregion
 
         #region Views
         private BaseView m_currentView;
@@ -44,6 +39,7 @@ namespace OTG.CombatSystem.Editor
             CreateViews();
             BuildToolbarMenu();
             InitializeCharacterLibrary();
+            InitializeOptionsViewData();
 
             SwitchViews(m_characterStateGraphView);
         }
@@ -62,19 +58,28 @@ namespace OTG.CombatSystem.Editor
         #region Utility
         private void InitializeCharacterLibrary()
         {
-            OTGCombatEditorUtilis.InitializeCharacterLibrary(k_characterLibraryPath);
+            OTGCombatEditorUtilis.InitializeCharacterLibrary(OTGCombatEditorUtilis.DATAFILE_CHARACTER_LIBRARY_LOCATION);
 
+        }
+        private void InitializeOptionsViewData()
+        {
+            OptionsViewData optionsData = OTGCombatEditorUtilis.InitializeOptionsViewData();
+            OTGGlobalCombatConfig combatConfig = OTGCombatEditorUtilis.InitializeGlobalCombatConfig(optionsData.GameDataPath, "CSDevelopment");
+
+            SerializedObject obj = new SerializedObject(optionsData);
+            obj.FindProperty("m_globalCombatConfig").objectReferenceValue = combatConfig;
+            obj.ApplyModifiedProperties();
         }
         private void InitializeLayout()
         {
-            VisualTreeAsset layout = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(k_templatePath);
+            VisualTreeAsset layout = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(OTGCombatEditorUtilis.TEMPLATE_PATH_MAIN_WINDOW);
             TemplateContainer treeAsset = layout.CloneTree();
             rootVisualElement.Add(treeAsset);
 
         }
         private void InitializeStyleSheet()
         {
-            StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(k_stylePath);
+            StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(OTGCombatEditorUtilis.STYLE_PATH_MAIN_WINDOW);
             rootVisualElement.styleSheets.Add(styleSheet);
         }
         private void UpdateHeightOftheMainContainer()

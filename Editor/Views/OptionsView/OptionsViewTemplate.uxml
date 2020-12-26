@@ -6,6 +6,11 @@
     xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
 >
   <engine:VisualElement name="options-view">
+	  <editor:Toolbar name="game-data-bar" class ="options-toolbar">
+		  <engine:Label text="Game Data Folder" class ="options-toolbar-label"/>
+		  <engine:Label name="game-data-path" class="options-toolbar-path-label"/>
+		  <editor:ToolbarButton name="game-data-path-button" class ="options-toolbar-button" text="Browse"/>
+	  </editor:Toolbar>
     <editor:Toolbar name="character-data-bar" class ="options-toolbar">
       <engine:Label text="Character Data Folder" class ="options-toolbar-label"/>
       <engine:Label name="character-data-path" class="options-toolbar-path-label"/>
@@ -26,6 +31,7 @@
       <engine:Label name="transitions-data-path" class="options-toolbar-path-label"/>
       <editor:ToolbarButton name="transitions-data-path-button" class ="options-toolbar-button" text="Browse"/>
     </editor:Toolbar>
+	  
   </engine:VisualElement>
     
 </engine:UXML>
