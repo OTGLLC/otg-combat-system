@@ -48,6 +48,10 @@ namespace OTG.CombatSystem.Editor
             UpdateHeightOftheMainContainer();
             UpdateViewHeight();
         }
+        private void OnProjectChange()
+        {
+            m_currentView.OnProjectChanged();
+        }
         private void OnDisable()
         {
             CleanupToolbarMenu();

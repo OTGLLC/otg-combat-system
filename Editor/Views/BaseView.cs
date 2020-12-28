@@ -40,6 +40,10 @@ namespace OTG.CombatSystem.Editor
         {
             m_containerElement.Q<VisualElement>(ContainerStyleName).style.height = new StyleLength(_height);
         }
+        public void OnProjectChanged()
+        {
+            HandleProjectChanged();
+        }
         public void OnViewLostFocus()
         {
             HandlerViewLostFocus();
@@ -48,6 +52,10 @@ namespace OTG.CombatSystem.Editor
         {
             RemoveCurrentSubView();
             HandleViewFocused();
+        }
+        protected virtual void HandleProjectChanged()
+        {
+
         }
         protected void SwitchSubViews(SubView _newView)
         {

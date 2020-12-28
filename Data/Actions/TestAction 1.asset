@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd5bd4281ad27548a059e9fce453ac4, type: 3}
-  m_Name: CharacterLibrary
+  m_Script: {fileID: 11500000, guid: 18f3f5b079abb3e499110e60cded3ff4, type: 3}
+  m_Name: TestAction 1
   m_EditorClassIdentifier: 
-  m_characterNames:
-  - DevPlayer
+  m_combatActionType: 0
+  m_processType: 0
+  m_SystemTemplate: 0

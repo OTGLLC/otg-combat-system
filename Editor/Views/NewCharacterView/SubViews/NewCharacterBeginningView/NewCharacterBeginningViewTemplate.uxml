@@ -6,6 +6,19 @@
     xsi:noNamespaceSchemaLocation="../../../../../../../../UIElementsSchema/UIElements.xsd"
 >
   <engine:VisualElement name="new-character-beginning-subview">
+	  <engine:VisualElement name="character-work-area">
+		  <engine:VisualElement name="character-list-area">
+			  <editor:Toolbar name="character-list-toolbar">
+				  <editor:ToolbarButton name="project-list-button" text="Project" class="toolbar-button"/>
+				  <editor:ToolbarButton name="scene-list-button" text="Scene" class="toolbar-button"/>
+				  <editor:ToolbarButton name="delete-character-button" text="Delete" class="toolbar-button"/>
+			  </editor:Toolbar>
+			  <engine:ListView name="character-list-view"></engine:ListView>
+		  </engine:VisualElement>
+		  <engine:VisualElement name="character-data-area">
+			  <engine:Label name="character-name"/>
+		  </engine:VisualElement>
+	  </engine:VisualElement>
     <engine:Button name ="begin-new-character-button" text ="Start New Character"/>
   </engine:VisualElement>
 </engine:UXML>

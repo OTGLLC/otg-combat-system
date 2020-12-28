@@ -1,11 +1,17 @@
 #character-stategraph-view
 {
     display:flex;
+    flex-grow:1;
     flex-direction: column;
+}
+.graphView 
+{
+    flex-grow:1;
 }
 #graph-area
 {
     flex:.8;
+    flex-grow:1;
     border-bottom-width:1px;
     border-color:black;
 }
@@ -21,11 +27,26 @@
     border-right-width:1px;
     border-color:black;
 }
-#contextual-data-area
+.list-area
 {
-    flex:.6;
+    flex:.25;
+    flex-grow:.3;
+    border-right-width:1px;
+    border-color:black;
+}
+.list-area-view
+{
+    flex-grow:1;
+}
+.toolbar-filter
+{
+    flex-grow:1;
 }
 #character-list-view
 {
     flex-grow:1;
+}
+#state-name-textfield
+{
+    flex-grow:.5;
 }

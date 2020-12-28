@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd"
+>
+	<engine:VisualElement name="details-panel">
+		<engine:Button name="details-panel-expand" text="Expand Details"/>
+		<engine:VisualElement name="details-panel-holder">
+			<engine:VisualElement name="actions-holder" class="holder">
+				<engine:Button name="actions-expand-button" text ="Expand Actions" class="expand-button"/>
+				<engine:VisualElement name="actions-display-area" class ="display-area">
+					<engine:VisualElement name="OnEnterActions"/>
+					<engine:VisualElement name="OnUpdateActions"/>
+					<engine:VisualElement name="OnAnimatorMoveActions"/>
+					<engine:VisualElement name="OnExitActions"/>
+				</engine:VisualElement>
+			</engine:VisualElement>
+			<engine:VisualElement name="transitions-holder" class="holder">
+				<engine:Button name="transitions-expand-button" text="Expand Transitions" class="expand-button"/>
+				<engine:VisualElement name="transitions-display-area" class ="display-area">
+					<engine:VisualElement name="transitions"/>
+				</engine:VisualElement>
+			</engine:VisualElement>
+		</engine:VisualElement>
+	</engine:VisualElement>
+</engine:UXML>

@@ -1,1 +1,43 @@
-VisualElement {}
+#new-character-beginning-subview
+{
+	display: flex;
+	flex-direction: column;
+}
+
+#character-work-area
+{
+	flex: .95;
+	display:flex;
+	flex-direction:row;
+}
+#character-list-area 
+{
+	display:flex;
+	flex:.3;
+	border-color:black;
+	border-right-width:1px;
+}
+#character-list-toolbar 
+{
+	flex:.05;
+	display:flex;
+	flex-direction:row;
+}
+.toolbar-button 
+{
+
+	flex:.3;
+	flex-grow:1;
+}
+#character-list-view 
+{
+	flex:.95;
+}
+#character-data-area {
+	flex: .7;
+}
+
+
+#begin-new-character-button {
+	flex: .05;
+}

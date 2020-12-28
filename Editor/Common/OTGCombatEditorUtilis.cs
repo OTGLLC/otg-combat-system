@@ -21,11 +21,23 @@ namespace OTG.CombatSystem.Editor
             _targetListView = _ownerContainer.Query<ListView>(_listAreaName).First();
 
             _targetListView.Clear();
+
+           
             _targetListView.makeItem = () => new Label();
+
+            //if (_items.Count == 0)
+                //return;
 
             _targetListView.bindItem = (element, i) =>
             {
-                string labelText = _items[i].ToString();
+                string labelText = string.Empty;
+
+                if (_items.Count > 0)
+                {
+                    labelText = _items[i].ToString();
+                }
+                    
+
                 if (tailOfPath)
                 {
                     string[] pathSplit = labelText.Split('/');
@@ -135,11 +147,95 @@ namespace OTG.CombatSystem.Editor
             data = AssetDatabase.LoadAssetAtPath<OptionsViewData>(path);
             return data;
         }
+        public static OTGCombatState CreateNewState(string _characterName,string _stateName)
+        {
+            OptionsViewData optionsData = GetOptionsViewData();
+            OTGCombatState state = ScriptableObject.CreateInstance<OTGCombatState>();
+            state.name = GetCombatStateName(_characterName, _stateName);
+
+            string stateFolder = GetCharacterStateFolder(_characterName, optionsData.CharacterDataPath);
+            AssetDatabase.CreateAsset(state, stateFolder + "/" + state.name + ".asset");
+
+            return state;
+        }
+        public static List<string> GetAllActionsLocations()
+        {
+            List<string> paths = new List<string>();
+            string[] guids = AssetDatabase.FindAssets("t:OTGCombatAction");
+            for(int i = 0; i < guids.Length; i++)
+            {
+                paths.Add(AssetDatabase.GUIDToAssetPath(guids[i]));
+            }
+            return paths;
+        }
+        public static OTGCombatAction GetCombatActionFromPath(string _path)
+        {
+            return AssetDatabase.LoadAssetAtPath<OTGCombatAction>(_path);
+        }
+        public static List<string> GetAllStates(string _characterName)
+        {
+            OptionsViewData optionsView = GetOptionsViewData();
+
+            string dataFolder = GetCharacterStateFolder(_characterName, optionsView.CharacterDataPath);
+            
+            List<string> paths = new List<string>();
+            string[] guids = AssetDatabase.FindAssets("t:OTGCombatState", new[] { dataFolder });
+            for (int i = 0; i < guids.Length; i++)
+            {
+                paths.Add(AssetDatabase.GUIDToAssetPath(guids[i]));
+            }
+            return paths;
+        }
+        public static OTGCombatState GetCombatStateFromPath(string _path)
+        {
+            return AssetDatabase.LoadAssetAtPath<OTGCombatState>(_path);
+        }
+        public static List<string> GetAllTransitionsLocations()
+        {
+            
+            List<string> paths = new List<string>();
+            string[] guids = AssetDatabase.FindAssets("t:OTGTransitionDecision");
+            for (int i = 0; i < guids.Length; i++)
+            {
+                paths.Add(AssetDatabase.GUIDToAssetPath(guids[i]));
+            }
+            return paths;
+        }
+        public static OTGTransitionDecision GetTransitionDecisionFromPath(string _path)
+        {
+            return AssetDatabase.LoadAssetAtPath<OTGTransitionDecision>(_path);
+        }
+        public static List<string> GetAllAnimationsLocations()
+        {
+
+            List<string> paths = new List<string>();
+            string[] guids = AssetDatabase.FindAssets("t:AnimationClip");
+            for (int i = 0; i < guids.Length; i++)
+            {
+                paths.Add(AssetDatabase.GUIDToAssetPath(guids[i]));
+            }
+            return paths;
+        }
+        public static AnimationClip GetAnimationClipFromPath(string _path)
+        {
+            return AssetDatabase.LoadAssetAtPath<AnimationClip>(_path);
+        }
+        public static string GetActionOrTransitionNameFromPath(string _path)
+        {
+            string retVal = string.Empty;
+            string[] parts = _path.Split('/');
+            string assetName = parts[parts.Length - 1];
+            string[] assetNameParts = assetName.Split('.');
+            retVal = assetNameParts[0];
+
+            return retVal;
+        }
         public static void DeleteCharacter(string _characterName)
         {
             OptionsViewData _data = GetOptionsViewData();
 
             DeleteCharacterDataFolders(_characterName, _data);
+            DeleteCharacterFromScene(_characterName);
         }
         public static void CreateCharacterData(NewCharacterCreationData _data, OptionsViewData _optionsData)
         {
@@ -147,6 +243,19 @@ namespace OTG.CombatSystem.Editor
             lib.AddCharacter(_data.CharacterName);
             CreateCharacterDataFolders(_data, _optionsData);
             CreateCharacterSavedGraphFile(_data, _optionsData);
+        }
+        public static OTGCombatSMC GetCharacterFromScene(string _characterName)
+        {
+            OTGCombatSMC target = null;
+            OTGCombatSMC[] smcs = GameObject.FindObjectsOfType<OTGCombatSMC>();
+            for (int i = 0; i < smcs.Length; i++)
+            {
+                if (string.Equals(smcs[i].gameObject.name, _characterName, System.StringComparison.Ordinal))
+                {
+                    target = smcs[i];
+                }
+            }
+            return target;
         }
         public static string GetCharacterStateFolder(string _characterName, string _rootFolder)
         {
@@ -196,7 +305,20 @@ namespace OTG.CombatSystem.Editor
             AssetDatabase.DeleteAsset(rootCharfolder+ "/States");
             AssetDatabase.DeleteAsset(rootCharfolder + "/Prefabs");
             AssetDatabase.DeleteAsset(rootCharfolder + "/Configurations");
+            AssetDatabase.DeleteAsset(GetCharacterSavedGraphPath(_characterName, rootCharfolder));
+            GetCharacterLibrary().RemoveCharacter(_characterName);
             AssetDatabase.DeleteAsset(_optionsData.CharacterDataPath+"/"+ _characterName);
+        }
+        private static void DeleteCharacterFromScene(string _characterName)
+        {
+            OTGCombatSMC[] smcs = GameObject.FindObjectsOfType<OTGCombatSMC>();
+            for(int i = 0; i < smcs.Length; i++)
+            {
+                if(string.Equals(smcs[i].gameObject.name,_characterName,System.StringComparison.Ordinal))
+                {
+                    GameObject.DestroyImmediate(smcs[i].gameObject);
+                }
+            }
         }
         private static void CreateCharacterSavedGraphFile(NewCharacterCreationData _data, OptionsViewData _optionsData)
         {

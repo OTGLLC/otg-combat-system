@@ -6,20 +6,49 @@
     xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
 >
   <engine:VisualElement name="character-stategraph-view">
+	  <editor:Toolbar name="graph-area-toolbar">
+		  <editor:ToolbarButton name="new-state-button" text ="New State"/>
+		  <engine:TextField name="state-name-textfield"/>
+	  </editor:Toolbar>
     <engine:VisualElement name="graph-area"/>
     <engine:VisualElement name="data-area">
-      <engine:VisualElement name="character-list-area">
-        <editor:Toolbar name="character-list-toolbar">
+      <engine:VisualElement name="character-list-area" class ="list-area">
+        <editor:Toolbar name="character-list-toolbar" class ="list-area-toolbar">
           <editor:ToolbarButton name="project-list-button" text="Project"/>
           <editor:ToolbarButton name="scene-list-button" text="Scene"/>
           <editor:ToolbarButton name="new-character-button" text="New"/>
           <editor:ToolbarButton name="delete-character-button" text="Delete"/>
         </editor:Toolbar>
-        <engine:ListView name="character-list-view"></engine:ListView>
+        <engine:ListView name="character-list-view" class ="list-area-view"></engine:ListView>
       </engine:VisualElement>
-      <engine:VisualElement name="contextual-data-area">
-        
-      </engine:VisualElement>
+		<engine:VisualElement name="actions-list-area" class ="list-area">
+			<editor:Toolbar name="actions-list-toolbar" class ="list-area-toolbar">
+				<engine:Label text="Actions" class ="toolbat-label"/>
+				<engine:TextField name="actions-filter" class="toolbar-filter"/>
+			</editor:Toolbar>
+			<engine:ListView name="actions-list-view" class ="list-area-view"></engine:ListView>
+		</engine:VisualElement>
+		<engine:VisualElement name="transitions-list-area" class ="list-area">
+			<editor:Toolbar name="transitions-list-toolbar" class ="list-area-toolbar">
+				<engine:Label text="Transitions" class ="toolbat-label"/>
+				<engine:TextField name="transitions-filter" class="toolbar-filter"/>
+			</editor:Toolbar>
+			<engine:ListView name="transitions-list-view" class ="list-area-view"></engine:ListView>
+		</engine:VisualElement>
+		<engine:VisualElement name="states-list-area" class ="list-area">
+			<editor:Toolbar name="states-list-toolbar" class ="list-area-toolbar">
+				<engine:Label text="States" class ="toolbat-label"/>
+				<engine:TextField name="states-filter" class="toolbar-filter"/>
+			</editor:Toolbar>
+			<engine:ListView name="states-list-view" class ="list-area-view"></engine:ListView>
+		</engine:VisualElement>
+		<engine:VisualElement name="animations-list-area" class ="list-area">
+			<editor:Toolbar name="animations-list-toolbar" class ="list-area-toolbar">
+				<engine:Label text="Animations" class ="toolbat-label"/>
+				<engine:TextField name="animations-filter" class="toolbar-filter"/>
+			</editor:Toolbar>
+			<engine:ListView name="animations-list-view" class ="list-area-view"></engine:ListView>
+		</engine:VisualElement>
     </engine:VisualElement>
   </engine:VisualElement>
 </engine:UXML>
