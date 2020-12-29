@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace OTG.CombatSystem
 {
+    /// <summary>
+    /// Used to check for adjacent combatants
+    /// </summary>
     [RequireComponent(typeof(BoxCollider))]
     public class OTGTargetingController : MonoBehaviour
     {

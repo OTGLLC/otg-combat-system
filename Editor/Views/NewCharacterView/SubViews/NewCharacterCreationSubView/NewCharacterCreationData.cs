@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace OTG.CombatSystem.Editor
         #region Properties
         public string CharacterName { get; private set; }
         public e_CombatantType CharacterType { get; private set; }
-        public Object CharacterModel { get; private set; }
+        public UnityEngine.Object CharacterModel { get; private set; }
         public Avatar CharacterAvatar { get; private set; }
         public string SelectedModelPath { get; set; }
         public  List<string> AvailableModelsPaths { get; private set; }
@@ -23,6 +24,8 @@ namespace OTG.CombatSystem.Editor
         private OptionsViewData m_optionsViewData;
         private GameObject m_characterGameObject;
         private SerializedObject m_combatSMC;
+        private OTGTargetingController m_targetingController;
+        private OTGHitColliderController m_hitColliderController;
         #endregion
 
         #region Public API
@@ -50,6 +53,11 @@ namespace OTG.CombatSystem.Editor
             CreateInitialState();
             ApplyCharacterModel();
             ApplyCharacterType();
+            AddOTGTargetingController();
+            AddHitBoxCollider();
+            AdjustCharacterControllerCapsule();
+            SetLayers();
+            AddSFXControllers();
         }
         public void Cleanup()
         {
@@ -57,7 +65,7 @@ namespace OTG.CombatSystem.Editor
             AvailableModelsPaths = null;
             AvailableAvatarsPaths = null;
         }
-        public void OnCharacterModelSelected(Object _charmodel)
+        public void OnCharacterModelSelected(UnityEngine.Object _charmodel)
         {
             CharacterModel = _charmodel;
            
@@ -171,6 +179,77 @@ namespace OTG.CombatSystem.Editor
 
             characterModel.transform.SetParent(m_characterGameObject.transform);
             characterModel.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        }
+        private void AddOTGTargetingController()
+        {
+            OptionsViewData optionsData = OTGCombatEditorUtilis.GetOptionsViewData();
+
+            GameObject targeting = new GameObject();
+            m_targetingController = targeting.AddComponent<OTGTargetingController>();
+            targeting.GetComponent<BoxCollider>().isTrigger = true;
+            targeting.name = "TargetingController";
+            targeting.transform.parent = m_characterGameObject.transform;
+            targeting.transform.position = new Vector3(1, 1, 0);
+
+            SerializedObject obj = new SerializedObject(m_targetingController);
+            SerializedProperty prop = obj.FindProperty("m_validTargets");
+            if (CharacterType == e_CombatantType.Player)
+            {
+                prop.intValue = optionsData.GlobalCombatConfig.EnemyPushBox;
+            }
+            if (CharacterType == e_CombatantType.Enemy)
+            {
+                prop.intValue = optionsData.GlobalCombatConfig.PlayerPushBox;
+            }
+            obj.ApplyModifiedProperties();
+        }
+        private void AddSFXControllers()
+        {
+            foreach (E_SoundFXType type in Enum.GetValues(typeof(E_SoundFXType)))
+            {
+                GameObject obj = new GameObject();
+                obj.name = "OTGSFXController." + type.ToString();
+
+                OTGSoundFXController ctrl = obj.AddComponent<OTGSoundFXController>();
+                ctrl.GetComponent<AudioSource>().playOnAwake = false;
+
+                SerializedObject sObj = new SerializedObject(ctrl);
+                sObj.FindProperty("m_sfxType").intValue = (int)type;
+                sObj.ApplyModifiedProperties();
+
+                obj.transform.parent = m_characterGameObject.transform;
+                obj.transform.position = Vector3.zero;
+            }
+        }
+        private void SetLayers()
+        {
+            OptionsViewData optionsViewData = OTGCombatEditorUtilis.GetOptionsViewData();
+
+            if (CharacterType == e_CombatantType.Player)
+            {
+                m_characterGameObject.layer = Mathf.RoundToInt(Mathf.Log(optionsViewData.GlobalCombatConfig.PlayerPushBox.value, 2));
+                m_hitColliderController.gameObject.layer = Mathf.RoundToInt(Mathf.Log(optionsViewData.GlobalCombatConfig.PlayerHitBox.value, 2));
+            }
+            else if (CharacterType == e_CombatantType.Enemy)
+            {
+
+                m_characterGameObject.layer = Mathf.RoundToInt(Mathf.Log(optionsViewData.GlobalCombatConfig.EnemyPushBox.value, 2));
+                m_hitColliderController.gameObject.layer = Mathf.RoundToInt(Mathf.Log(optionsViewData.GlobalCombatConfig.EnemyHitBox.value, 2));
+            }
+        }
+        private void AdjustCharacterControllerCapsule()
+        {
+            m_characterGameObject.GetComponent<CharacterController>().center = new Vector3(0, 1, 0);
+        }
+        private void AddHitBoxCollider()
+        {
+            GameObject collider = new GameObject();
+            m_hitColliderController = collider.AddComponent<OTGHitColliderController>();
+
+            collider.GetComponent<BoxCollider>().isTrigger = true;
+            collider.name = "HitBoxCollider";
+            collider.transform.parent = m_characterGameObject.transform;
+            collider.transform.position = new Vector3(0, 1, 0);
         }
         #endregion
 

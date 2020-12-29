@@ -18,7 +18,7 @@ namespace OTG.CombatSystem.Editor
         {
             Initialize();
             AddManipulators();
-            ConstructGridBackground();
+           // ConstructGridBackground();
           
         }
         public void OnCharacterSelected(SelectedCharacterData _data)

@@ -5,3 +5,22 @@
 #title {
     --unity-font-style: bold;
 }
+
+.property-area{
+    display:flex;
+    flex-direction:row;
+}
+.property-label{
+    flex:.2;
+}
+.property-field
+{
+    flex:.8;
+    flex-grow:1;
+}
+.expansion-button{
+    height:10px;
+}
+#animation-data-display-area{
+    flex-grow:1;
+}
