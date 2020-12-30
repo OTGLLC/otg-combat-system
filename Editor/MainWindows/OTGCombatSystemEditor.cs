@@ -33,13 +33,14 @@ namespace OTG.CombatSystem.Editor
         #region Unity API
         private void OnEnable()
         {
-
+            
             InitializeLayout();
             InitializeStyleSheet();
             CreateViews();
             BuildToolbarMenu();
             InitializeCharacterLibrary();
             InitializeOptionsViewData();
+            OTGCombatEditorUtilis.OnRequestActions();
 
             SwitchViews(m_characterStateGraphView);
         }

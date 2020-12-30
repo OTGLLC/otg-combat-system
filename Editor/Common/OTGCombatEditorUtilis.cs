@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
+using System.Reflection;
+using System.Collections.Generic;
+using System;
 
 namespace OTG.CombatSystem.Editor
 {
     public static class OTGCombatEditorUtilis
     {
+        static List<OTGCombatAction> AvailableActions;
         #region Constants
         public const string DATAFILE_OPTIONS_VIEW_LOCATION = "Assets/Submodules/otg-combat-system/Editor/Data";
         public const string DATAFILE_CHARACTER_LIBRARY_LOCATION = "Assets/Submodules/otg-combat-system/Editor/Data";
@@ -15,6 +20,16 @@ namespace OTG.CombatSystem.Editor
         public const string STYLE_PATH_MAIN_WINDOW = "Assets/Submodules/otg-combat-system/Editor/MainWindows/OTGCombatSystemEditorStyle.uss";
         #endregion
 
+        #region Event Calls
+        public static void OnRequestActions()
+        {
+            var targetName = "OTG.Game";
+            Assembly asm = Assembly.Load(targetName);
+
+            GetAllActionsInGameAssembly(asm);
+            GetAllTransitionsInAssembly(asm);
+        }
+        #endregion
         #region Public API - Data Tools
         public static void PopulateListView<T>(ref ListView _targetListView, ref VisualElement _ownerContainer, List<T> _items, string _listAreaName, bool tailOfPath = false)
         {
@@ -289,6 +304,59 @@ namespace OTG.CombatSystem.Editor
         #endregion
 
         #region Data Utili
+        private static void GetAllActionsInGameAssembly(Assembly _asm)
+        {
+            OptionsViewData data = GetOptionsViewData();
+            var actions2 = _asm.GetTypes();
+
+            string[] existing = AssetDatabase.FindAssets("t:OTGCombatAction");
+            List<string> paths = new List<string>();
+
+            for(int i = 0; i < existing.Length; i++)
+            {
+                paths.Add(AssetDatabase.GUIDToAssetPath(existing[i]));
+            }
+
+            foreach(Type ty in actions2)
+            {
+                if (string.Equals(ty.BaseType.Name, "OTGCombatAction", StringComparison.OrdinalIgnoreCase))
+                {
+                    var match = paths.Where(x => x.Contains(ty.Name));
+                    if (match.Count() > 0)
+                        continue;
+
+                    var act = ScriptableObject.CreateInstance(ty.Name);
+                    AssetDatabase.CreateAsset(act, data.ActionsPath +"/" +ty.Name + ".asset");
+                }
+            }
+        }
+        private static void GetAllTransitionsInAssembly(Assembly _asm)
+        {
+            
+            OptionsViewData data = GetOptionsViewData();
+            var transitions2 = _asm.GetTypes();
+
+            string[] existing = AssetDatabase.FindAssets("t:OTGTransitionDecision");
+            List<string> paths = new List<string>();
+
+            for (int i = 0; i < existing.Length; i++)
+            {
+                paths.Add(AssetDatabase.GUIDToAssetPath(existing[i]));
+            }
+
+            foreach (Type ty in transitions2)
+            {
+                if (string.Equals(ty.BaseType.Name, "OTGTransitionDecision", StringComparison.OrdinalIgnoreCase))
+                {
+                    var match = paths.Where(x => x.Contains(ty.Name));
+                    if (match.Count() > 0)
+                        continue;
+
+                    var act = ScriptableObject.CreateInstance(ty.Name);
+                    AssetDatabase.CreateAsset(act, data.TransitionsPath + "/" + ty.Name + ".asset");
+                }
+            }
+        }
         private static void CreateCharacterDataFolders(NewCharacterCreationData _data, OptionsViewData _optionsData)
         {
             string rootCharfolder = GetCharacterRootFolder(_data.CharacterName, _optionsData.CharacterDataPath);

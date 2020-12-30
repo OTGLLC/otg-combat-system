@@ -4,7 +4,11 @@
     "references": [
         "GUID:1b760e247a0b5db4d9cd1098b377b628"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

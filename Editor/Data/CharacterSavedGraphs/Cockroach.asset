@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e1b37343f202044a186cee30aed3a6, type: 3}
-  m_Name: TestTransition 1
+  m_Script: {fileID: 11500000, guid: c4607541851741e47bffec712d8aedfd, type: 3}
+  m_Name: Cockroach
   m_EditorClassIdentifier: 
-  m_transitionDecisionType: 0
-  m_combatSystemType: 0
+  m_nodePositionData: []
