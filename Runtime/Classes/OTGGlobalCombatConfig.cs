@@ -17,7 +17,7 @@ namespace OTG.CombatSystem
         [SerializeField] private LayerMask m_enemyPushBox;
         [SerializeField] private LayerMask m_enemyHitBox;
         [SerializeField] private LayerMask m_enemyHurtBox;
-        [SerializeField] private LayerMask m_targetingBox;
+        [SerializeField] private LayerMask m_playerSense;
         [SerializeField] private SoundHandlerData m_soundHandlerData;
         [SerializeField] private float m_laneDistance;
         [SerializeField] private float m_facingRightRotation;
@@ -30,7 +30,8 @@ namespace OTG.CombatSystem
         public LayerMask EnemyPushBox { get { return m_enemyPushBox; } }
         public LayerMask EnemyHitBox { get { return m_enemyHitBox; } }
         public LayerMask EnemyHurtBox { get { return m_enemyHurtBox; } }
-        public LayerMask TargetingBox { get { return m_targetingBox; } }
+        public LayerMask PlayerSense { get { return m_playerSense; } }
+
         public float GravitySetting { get { return m_gravitySetting; } }
         public float StickingForce { get { return m_stickingForce; } }
         public SoundHandlerData SoundHandleData { get { return m_soundHandlerData; } }

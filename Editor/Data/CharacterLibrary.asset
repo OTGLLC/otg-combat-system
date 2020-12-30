@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd5bd4281ad27548a059e9fce453ac4, type: 3}
   m_Name: CharacterLibrary
   m_EditorClassIdentifier: 
-  m_characterNames:
-  - DevPlayer
+  m_characterNames: []
