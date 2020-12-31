@@ -224,7 +224,12 @@ namespace OTG.CombatSystem.Editor
         private Port CreateOutputPort(SerializedProperty _prop)
         {
             Port p = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(OTGCombatState));
-            p.portName = GetOutputPortName(_prop.FindPropertyRelative("m_nextState").objectReferenceValue.name);
+            Object nextState = _prop.FindPropertyRelative("m_nextState").objectReferenceValue;
+
+            if (nextState == null)
+                return p;
+
+            p.portName = GetOutputPortName(nextState.name);
             this.outputContainer.Add(p);
             RefreshExpandedState();
             RefreshPorts();

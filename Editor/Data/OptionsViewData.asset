@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_characterDataPath: Assets/_gaters-go_Game/Data/Characters
   m_savedGraphsPath: Assets/Submodules/otg-combat-system/Editor/Data/CharacterSavedGraphs
-  m_actionsPath: Assets/Submodules/otg-combat-system/Data/Actions
-  m_transitionsPath: Assets/Submodules/otg-combat-system/Data/Transitions
+  m_actionsPath: Assets/_gaters-go_Game/Data/Actions
+  m_transitionsPath: Assets/_gaters-go_Game/Data/Transitions
   m_gameDataPath: Assets/_gaters-go_Game/Data
   m_globalCombatConfig: {fileID: 11400000, guid: b266e2c85fbddfd469abe7ec2b0feef3, type: 2}

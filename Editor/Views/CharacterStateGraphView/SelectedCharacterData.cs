@@ -61,6 +61,8 @@ namespace OTG.CombatSystem.Editor
             for(int i = 0; i < transitions;i++)
             {
                 Object child = _parent.FindProperty("m_stateTransitions").GetArrayElementAtIndex(i).FindPropertyRelative("m_nextState").objectReferenceValue;
+                if (child == null)
+                    continue;
                 SerializedObject obj = new SerializedObject(child);
                 AvailableStateData data = new AvailableStateData()
                 {
