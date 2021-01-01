@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -64,15 +65,21 @@ namespace OTG.CombatSystem.Editor
                 if (child == null)
                     continue;
                 SerializedObject obj = new SerializedObject(child);
+
+                var hasState = AvailableStates.Where(x => string.Equals(x.StateSOBj.targetObject.name, obj.targetObject.name, System.StringComparison.OrdinalIgnoreCase)).ToArray();
+
+
                 AvailableStateData data = new AvailableStateData()
                 {
                     StateSOBj = obj,
                     WidthLevl = _width,
-                    HeightLevel = i
+                    HeightLevel = i,
+                    IsRepeat = hasState.Length > 0
                 };
                 AvailableStates.Add(data);
 
-                GetChildState(obj, ++_width);
+                if(hasState.Length == 0)
+                    GetChildState(obj, ++_width);
             }
 
         }
@@ -83,5 +90,6 @@ namespace OTG.CombatSystem.Editor
         public SerializedObject StateSOBj;
         public int WidthLevl;
         public int HeightLevel;
+        public bool IsRepeat;
     }
 }

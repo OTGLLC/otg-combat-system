@@ -59,6 +59,22 @@ namespace OTG.CombatSystem
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SwitchLaneUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""46354508-cfc6-4262-91c6-9ea5da2ac9c2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SwitchLaneDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""b03579f1-d529-4f52-9685-7beaa8e4d34c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -257,6 +273,50 @@ namespace OTG.CombatSystem
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f1e38ec-758f-4b02-bd47-d753a7c76da4"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwitchLaneUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""acfdfd18-37cf-4319-8895-59369f02d5b0"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SwitchLaneUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58b29e30-ea52-4c6a-bd67-2baa10d0d91c"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwitchLaneDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1580294a-5ee7-439b-bc34-3086414c9b3a"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SwitchLaneDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -839,6 +899,8 @@ namespace OTG.CombatSystem
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
             m_Player_Defend = m_Player.FindAction("Defend", throwIfNotFound: true);
             m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
+            m_Player_SwitchLaneUp = m_Player.FindAction("SwitchLaneUp", throwIfNotFound: true);
+            m_Player_SwitchLaneDown = m_Player.FindAction("SwitchLaneDown", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -905,6 +967,8 @@ namespace OTG.CombatSystem
         private readonly InputAction m_Player_Attack;
         private readonly InputAction m_Player_Defend;
         private readonly InputAction m_Player_Special;
+        private readonly InputAction m_Player_SwitchLaneUp;
+        private readonly InputAction m_Player_SwitchLaneDown;
         public struct PlayerActions
         {
             private @SideScrollInputProfile m_Wrapper;
@@ -914,6 +978,8 @@ namespace OTG.CombatSystem
             public InputAction @Attack => m_Wrapper.m_Player_Attack;
             public InputAction @Defend => m_Wrapper.m_Player_Defend;
             public InputAction @Special => m_Wrapper.m_Player_Special;
+            public InputAction @SwitchLaneUp => m_Wrapper.m_Player_SwitchLaneUp;
+            public InputAction @SwitchLaneDown => m_Wrapper.m_Player_SwitchLaneDown;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -938,6 +1004,12 @@ namespace OTG.CombatSystem
                     @Special.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
                     @Special.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
                     @Special.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                    @SwitchLaneUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLaneUp;
+                    @SwitchLaneUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLaneUp;
+                    @SwitchLaneUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLaneUp;
+                    @SwitchLaneDown.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLaneDown;
+                    @SwitchLaneDown.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLaneDown;
+                    @SwitchLaneDown.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLaneDown;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -957,6 +1029,12 @@ namespace OTG.CombatSystem
                     @Special.started += instance.OnSpecial;
                     @Special.performed += instance.OnSpecial;
                     @Special.canceled += instance.OnSpecial;
+                    @SwitchLaneUp.started += instance.OnSwitchLaneUp;
+                    @SwitchLaneUp.performed += instance.OnSwitchLaneUp;
+                    @SwitchLaneUp.canceled += instance.OnSwitchLaneUp;
+                    @SwitchLaneDown.started += instance.OnSwitchLaneDown;
+                    @SwitchLaneDown.performed += instance.OnSwitchLaneDown;
+                    @SwitchLaneDown.canceled += instance.OnSwitchLaneDown;
                 }
             }
         }
@@ -1118,6 +1196,8 @@ namespace OTG.CombatSystem
             void OnAttack(InputAction.CallbackContext context);
             void OnDefend(InputAction.CallbackContext context);
             void OnSpecial(InputAction.CallbackContext context);
+            void OnSwitchLaneUp(InputAction.CallbackContext context);
+            void OnSwitchLaneDown(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

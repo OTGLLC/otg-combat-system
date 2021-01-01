@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: CharacterLibrary
   m_EditorClassIdentifier: 
   m_characterNames:
-  - Marine
-  - Cockroach
+  - Jimmy

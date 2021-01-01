@@ -14,6 +14,7 @@ namespace OTG.CombatSystem
         [SerializeField] private HandlerDataGroup m_handlerDataGroup;
         [SerializeField] private OTGCombatState m_startingState;
         [SerializeField] private e_CombatantType m_combatantType;
+        [SerializeField] private Transform m_characterModelTransform;
         #endregion
 
         #region Fields
@@ -117,7 +118,7 @@ namespace OTG.CombatSystem
         private void InitializeHandlers()
         {
             Handler_Animation = new AnimationHandler(m_handlerDataGroup, GetComponent<Animator>());
-            Handler_Movement = new MovementHandler(m_handlerDataGroup, GetComponent<CharacterController>(), GetComponent<Transform>(),m_globalConfig);
+            Handler_Movement = new MovementHandler(m_handlerDataGroup, GetComponent<CharacterController>(), GetComponent<Transform>(),m_characterModelTransform,m_globalConfig);
             Handler_Input = new InputHandler(m_handlerDataGroup);
             Handler_Collision = new CollisionHandler(m_handlerDataGroup, GetComponentInChildren<OTGHitColliderController>(), GetComponentsInChildren<OTGHurtColliderController>(), GetComponentInChildren<OTGTargetingController>(),m_globalConfig);
             Handler_Combat = new CombatHandler(m_handlerDataGroup);

@@ -26,6 +26,9 @@ namespace OTG.CombatSystem.Editor
             //CreateStartingNode(_data);
             for(int i = 0; i < _data.AvailableStates.Count; i++)
             {
+                if (_data.AvailableStates[i].IsRepeat)
+                    continue;
+
                 CharacterStateNode n = GenerateNode(_data.AvailableStates[i]);
             }
         }
@@ -99,7 +102,7 @@ namespace OTG.CombatSystem.Editor
 
         private CharacterStateNode GenerateNode(AvailableStateData _stateData)
         {
-
+            
             CharacterStateNode n = new CharacterStateNode(_stateData.StateSOBj);
             AddElement(n);
 

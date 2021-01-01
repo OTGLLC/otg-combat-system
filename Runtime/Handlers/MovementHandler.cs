@@ -8,6 +8,7 @@ namespace OTG.CombatSystem
 
         #region Properties
         public Transform Comp_Transform { get; private set; }
+        public Transform Comp_CharModel_Transform { get; private set; }
         public MovementHandlerData Data { get; private set; }
         public CharacterController Comp_CharacterControl { get; private set; }
         public OTGGlobalCombatConfig GlobalCombatConfig { get; private set; }
@@ -26,10 +27,11 @@ namespace OTG.CombatSystem
         #endregion
 
         #region Public API
-        public MovementHandler(HandlerDataGroup _dataGroup, CharacterController _charControl, Transform _trans, OTGGlobalCombatConfig _globalConfig)
+        public MovementHandler(HandlerDataGroup _dataGroup, CharacterController _charControl, Transform _trans,Transform _characterModelTrans ,OTGGlobalCombatConfig _globalConfig)
         {
             Data = _dataGroup.MoveHandlerData;
             Comp_CharacterControl = _charControl;
+            Comp_CharModel_Transform = _characterModelTrans;
             Comp_Transform = _trans;
             GlobalCombatConfig = _globalConfig;
         }
@@ -46,6 +48,7 @@ namespace OTG.CombatSystem
         {
             Data = null;
             Comp_CharacterControl = null;
+            Comp_CharModel_Transform = null;
             Comp_Transform = null;
             GlobalCombatConfig = null;
         }

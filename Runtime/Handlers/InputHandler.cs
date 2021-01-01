@@ -11,14 +11,19 @@ namespace OTG.CombatSystem
 
         #region Properties
         public Vector2 MovementVector { get; set; }
-        public InfiniteRunnerInput RunnerInput { get; set; }
+        public bool AttackInput { get; set; }
+        public bool HardAttackInput { get; set; }
+        public bool SpecialAttackInput { get; set; }
+        public bool DefendInput { get; set; }
+        public bool SwitchLaneUpInput { get; set; }
+        public bool SwitchLaneDownInput { get; set; }
         #endregion
 
         #region Public API
         public InputHandler(HandlerDataGroup _dataGroup)
         {
             InitializeData(_dataGroup);
-            RunnerInput = new InfiniteRunnerInput();
+           
         }
         public void CleanupHandler()
         {
@@ -39,11 +44,4 @@ namespace OTG.CombatSystem
 
     }
 
-    public class InfiniteRunnerInput
-    {
-        public bool HasRightInput { get; set; }
-        public bool HasLeftInput { get; set; }
-        public bool HasSwitchLanesUpInput { get; set; }
-        public bool HasSwitchLanesDownInpu { get; set; }
-    }
 }

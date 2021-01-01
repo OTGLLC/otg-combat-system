@@ -12,15 +12,15 @@ namespace OTG.CombatSystem
         #endregion
 
         #region Unity API
-        private void OnEnable()
+  
+        private void Start()
         {
-            InitializeInputProfile();
+            //InitializeInputProfile();
             InitializeInputHandler();
-
         }
         private void OnDisable()
         {
-            CleanupInputProfile();
+            //CleanupInputProfile();
             CleanupInputHandler();
         }
         #endregion
@@ -57,6 +57,14 @@ namespace OTG.CombatSystem
             m_inputProfile.Player.Defend.started += OnDefend;
             m_inputProfile.Player.Defend.performed += OnDefend;
             m_inputProfile.Player.Defend.canceled += OnDefend;
+
+            m_inputProfile.Player.SwitchLaneDown.started += OnSwitchLanesDown;
+            m_inputProfile.Player.SwitchLaneDown.performed += OnSwitchLanesDown;
+            m_inputProfile.Player.SwitchLaneDown.canceled += OnSwitchLanesDown;
+
+            m_inputProfile.Player.SwitchLaneUp.started += OnSwitchLaneUp;
+            m_inputProfile.Player.SwitchLaneUp.performed += OnSwitchLaneUp;
+            m_inputProfile.Player.SwitchLaneUp.canceled += OnSwitchLaneUp;
         }
 
         private void CleanupInputProfile()
@@ -81,29 +89,54 @@ namespace OTG.CombatSystem
             m_inputProfile.Player.Defend.performed -= OnDefend;
             m_inputProfile.Player.Defend.canceled -= OnDefend;
 
+            m_inputProfile.Player.SwitchLaneDown.started -= OnSwitchLanesDown;
+            m_inputProfile.Player.SwitchLaneDown.performed -= OnSwitchLanesDown;
+            m_inputProfile.Player.SwitchLaneDown.canceled -= OnSwitchLanesDown;
+
+            m_inputProfile.Player.SwitchLaneUp.started -= OnSwitchLaneUp;
+            m_inputProfile.Player.SwitchLaneUp.performed -= OnSwitchLaneUp;
+            m_inputProfile.Player.SwitchLaneUp.canceled -= OnSwitchLaneUp;
+
             m_inputProfile.Dispose();
             m_inputProfile = null;
         }
         #endregion
 
         #region Input Callbacks
-       private void OnMove(InputAction.CallbackContext _ctx)
+       public void OnMove(InputAction.CallbackContext _ctx)
+        {
+            Debug.Log("Move Input phase: " + _ctx.ReadValue<Vector2>());
+            switch(_ctx.phase)
+            {
+                case InputActionPhase.Canceled:
+                    m_inputHandler.MovementVector = Vector2.zero;
+                    break;
+                case InputActionPhase.Performed:
+                    m_inputHandler.MovementVector = _ctx.ReadValue<Vector2>();
+                    break;
+            }
+        }
+        public void OnAttack(InputAction.CallbackContext _ctx)
         {
 
         }
-        private void OnAttack(InputAction.CallbackContext _ctx)
+        public void OnHeavyAttack(InputAction.CallbackContext _ctx)
         {
 
         }
-        private void OnHeavyAttack(InputAction.CallbackContext _ctx)
+        public void OnSpecialAttack(InputAction.CallbackContext _ctx)
         {
 
         }
-        private void OnSpecialAttack(InputAction.CallbackContext _ctx)
+        public void OnDefend(InputAction.CallbackContext _ctx)
         {
 
         }
-        private void OnDefend(InputAction.CallbackContext _ctx)
+        public void OnSwitchLaneUp(InputAction.CallbackContext _ctx)
+        {
+
+        }
+        public void OnSwitchLanesDown(InputAction.CallbackContext _ctx)
         {
 
         }
