@@ -15,7 +15,7 @@ namespace OTG.CombatSystem
         public Dictionary<OTGHurtColliderID, OTGHurtColliderController> HurtColliders;
         public int NumberOfContacts { get; set; }
         public Collider[] ScanResults { get; private set; }
-        public OTGTargetingController TargetingController { get; private set; }
+        //public OTGTargetingController TargetingController { get; private set; }
         #endregion
 
         #region Public API
@@ -23,8 +23,8 @@ namespace OTG.CombatSystem
         {
             InitHandler(_dataGroup, _hitCollider, _globalConfig);
             InitHurtColliderLookup(_hurtColliders);
-            TargetingController = _targetingController;
-            TargetingController.InitController(_globalConfig.MaxScanElemements);
+            //TargetingController = _targetingController;
+            //TargetingController.InitController(_globalConfig.MaxScanElemements);
         }
         public void CleanupHandler()
         {
@@ -72,7 +72,7 @@ namespace OTG.CombatSystem
         }
         private void Cleanup()
         {
-            TargetingController = null;
+            //TargetingController = null;
             m_handlerData = null;
             m_hurtData = null;
             HitCollider = null;
