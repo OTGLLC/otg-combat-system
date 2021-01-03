@@ -5,7 +5,6 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 using System.Reflection;
-using System.Collections.Generic;
 using System;
 
 namespace OTG.CombatSystem.Editor

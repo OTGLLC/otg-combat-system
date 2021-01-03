@@ -57,7 +57,7 @@ namespace OTG.CombatSystem
 
             m_currentState.OnStateUpdate(this);
             
-            //Debug.Log("Current State: "+m_currentState.name+" Grounded: "+Handler_Movement.Comp_CharacterControl.isGrounded);
+            Debug.Log("Current State: "+m_currentState.name+" Grounded: "+Handler_Movement.Comp_CharacterControl.isGrounded);
       
         }
         private void OnAnimatorMove()
