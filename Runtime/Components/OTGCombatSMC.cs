@@ -132,7 +132,7 @@ namespace OTG.CombatSystem
             Handler_Movement = new MovementHandler(m_handlerDataGroup, GetComponent<CharacterController>(), GetComponent<Transform>(),m_characterModelTransform,m_globalConfig);
             Handler_Input = new InputHandler(m_handlerDataGroup);
             Handler_Collision = new CollisionHandler(m_handlerDataGroup, GetComponentInChildren<OTGHitColliderController>(), GetComponentsInChildren<OTGHurtColliderController>(), GetComponentInChildren<OTGTargetingController>(),m_globalConfig);
-            Handler_Combat = new CombatHandler(m_handlerDataGroup);
+            Handler_Combat = new CombatHandler(m_handlerDataGroup, GetComponentsInChildren<OTGWeapon>());
             Handler_VFX = new VFXHandler(GetComponentsInChildren<OTGVFXController>());
             Handler_SFX = new SFXHandler(m_globalConfig.SoundHandleData,GetComponentsInChildren<OTGSoundFXController>());
         }
