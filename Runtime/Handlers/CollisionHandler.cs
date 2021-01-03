@@ -37,18 +37,16 @@ namespace OTG.CombatSystem
             HasCollisionID = false;
 #endif
         }
-        public void OnAnimationEvent(OTGAnimationEvent _ev)
+        public void OnAnimHurtColliderEvent(OTGHurtColliderID _hurtColID)
         {
-            if (_ev.HurtColliderID == null)
-                return;
-
+            
 #if UNITY_EDITOR
             HasCollisionID = true;
 #endif
 
-            if (HurtColliders.ContainsKey(_ev.HurtColliderID))
+            if (HurtColliders.ContainsKey(_hurtColID))
             {
-                NumberOfContacts = HurtColliders[_ev.HurtColliderID].OnPerformDamageScan(ScanResults, m_hurtData);
+                NumberOfContacts = HurtColliders[_hurtColID].OnPerformDamageScan(ScanResults, m_hurtData);
             }
         }
         #endregion

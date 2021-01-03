@@ -21,14 +21,11 @@ namespace OTG.CombatSystem
         {
             Cleanup();
         }
-        public void OnAnimationEvent(OTGAnimationEvent _event)
+        public void OnVFXEvent(OTGVFXIdentification _vfxID)
         {
-            if (_event.VfxID == null)
-                return;
             if (VFXLookup.Count == 0)
                 return;
-
-            VFXLookup[_event.VfxID].OnPlayVFX();
+            VFXLookup[_vfxID].OnPlayVFX();
         }
         #endregion
 

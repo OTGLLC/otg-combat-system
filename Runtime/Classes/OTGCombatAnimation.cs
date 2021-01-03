@@ -41,7 +41,7 @@ namespace OTG.CombatSystem
         [SerializeField] private OTGVFXIdentification m_vfxID;
        
         [SerializeField] private float m_hitStopTime;
-        [SerializeField] private Vector3 m_rootMotionModifier;
+        [SerializeField] private Vector3 m_rootMotionModifier = Vector3.one;
         #endregion
 
         #region Properties

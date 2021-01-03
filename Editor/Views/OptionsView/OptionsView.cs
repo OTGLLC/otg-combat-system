@@ -15,6 +15,7 @@ namespace OTG.CombatSystem.Editor
         private Label m_actionsPath;
         private Label m_transitionsPath;
         private Label m_gameDataPath;
+        private Label m_animationEventsPath;
 
         private OptionsViewData m_optionsViewData;
         private ToolbarButton m_characterDataButton;
@@ -22,6 +23,7 @@ namespace OTG.CombatSystem.Editor
         private ToolbarButton m_actionsButton;
         private ToolbarButton m_transitionsButton;
         private ToolbarButton m_gameDataButton;
+        private ToolbarButton m_animationEventsButton;
         #endregion
 
 
@@ -92,6 +94,9 @@ namespace OTG.CombatSystem.Editor
             m_transitionsButton = ContainerElement.Q<ToolbarButton>("transitions-data-path-button");
             m_transitionsButton.clickable.clicked += OnTransitionFolderButton;
 
+            m_animationEventsButton = ContainerElement.Q<ToolbarButton>("animationevents-data-path-button");
+            m_animationEventsButton.clickable.clicked += OnAnimationEventsFolderButton;
+
         }
         private void CleanupToolbarButtons()
         {
@@ -100,12 +105,14 @@ namespace OTG.CombatSystem.Editor
             m_savedGraphsButton.clickable.clicked -= OnSavedGraphFolderButton;
             m_actionsButton.clickable.clicked -= OnActionFolderButton;
             m_transitionsButton.clickable.clicked -= OnTransitionFolderButton;
+            m_animationEventsButton.clickable.clicked -= OnAnimationEventsFolderButton;
 
             m_characterDataButton = null;
             m_savedGraphsButton = null;
             m_actionsButton = null;
             m_transitionsButton = null;
             m_gameDataButton = null;
+            m_animationEventsButton = null;
         }
         private void GatherLabels()
         {
@@ -114,6 +121,7 @@ namespace OTG.CombatSystem.Editor
             m_savedGraphPath = ContainerElement.Q<Label>("saved-graphs-data-path");
             m_actionsPath = ContainerElement.Q<Label>("actions-data-path");
             m_transitionsPath = ContainerElement.Q<Label>("transitions-data-path");
+            m_animationEventsPath = ContainerElement.Q<Label>("animationevents-data-path");
 
         }
         private void CleanupLabels()
@@ -122,6 +130,7 @@ namespace OTG.CombatSystem.Editor
             m_actionsPath = null;
             m_characterPath = null;
             m_savedGraphPath = null;
+            m_animationEventsPath = null;
             m_gameDataPath = null;
         }
         private void ApplyPathSelection(string _path,string _property,Label _targetLabel)
@@ -158,6 +167,11 @@ namespace OTG.CombatSystem.Editor
         {
             string path = OTGCombatEditorUtilis.GetAssetFolderPath(EditorUtility.OpenFolderPanel("Select Character Graph Data Root Folder", "", ""));
             ApplyPathSelection(path, "m_savedGraphsPath",m_savedGraphPath);
+        }
+        private void OnAnimationEventsFolderButton()
+        {
+            string path = OTGCombatEditorUtilis.GetAssetFolderPath(EditorUtility.OpenFolderPanel("Select Animation Event Data Root Folder", "", ""));
+            ApplyPathSelection(path, "m_animationEventsPath", m_animationEventsPath);
         }
         #endregion
     }

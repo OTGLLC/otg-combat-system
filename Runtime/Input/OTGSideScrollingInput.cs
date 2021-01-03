@@ -105,14 +105,14 @@ namespace OTG.CombatSystem
         #region Input Callbacks
        public void OnMove(InputAction.CallbackContext _ctx)
         {
-            Debug.Log("Move Input phase: " + _ctx.ReadValue<Vector2>());
             switch(_ctx.phase)
             {
                 case InputActionPhase.Canceled:
-                    m_inputHandler.MovementVector = Vector2.zero;
+                    m_inputHandler.MovementVector = _ctx.ReadValue<Vector2>();
                     break;
                 case InputActionPhase.Performed:
                     m_inputHandler.MovementVector = _ctx.ReadValue<Vector2>();
+                    Debug.Log(m_inputHandler.MovementVector);
                     break;
             }
         }
@@ -134,7 +134,16 @@ namespace OTG.CombatSystem
         }
         public void OnSwitchLaneUp(InputAction.CallbackContext _ctx)
         {
-
+            switch(_ctx.phase)
+            {
+                case InputActionPhase.Performed:
+                    m_inputHandler.SwitchLaneUpInput = true;
+                    break;
+                case InputActionPhase.Canceled:
+                    m_inputHandler.SwitchLaneUpInput = false;
+                    break;
+            }
+            
         }
         public void OnSwitchLanesDown(InputAction.CallbackContext _ctx)
         {

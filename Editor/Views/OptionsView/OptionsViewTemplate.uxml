@@ -31,7 +31,11 @@
       <engine:Label name="transitions-data-path" class="options-toolbar-path-label"/>
       <editor:ToolbarButton name="transitions-data-path-button" class ="options-toolbar-button" text="Browse"/>
     </editor:Toolbar>
-	  
+	  <editor:Toolbar name="animationevents-data-bar" class ="options-toolbar">
+		  <engine:Label text="Animation Events Data Folder" class ="options-toolbar-label"/>
+		  <engine:Label name="animationevents-data-path" class="options-toolbar-path-label"/>
+		  <editor:ToolbarButton name="animationevents-data-path-button" class ="options-toolbar-button" text="Browse"/>
+	  </editor:Toolbar>
   </engine:VisualElement>
     
 </engine:UXML>

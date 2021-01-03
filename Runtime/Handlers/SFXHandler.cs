@@ -27,11 +27,10 @@ namespace OTG.CombatSystem
                     m_soundFXControllers[_allData[i].SFXType].OnSetClip(_allData[i].ClipToPlay);
             }
         }
-        public void OnAnimationEventUpdate(OTGAnimationEvent _ev)
+        public void OnSFXEvent(OTGSFXIdentification _sfxID)
         {
-            if (_ev.SfxID == null)
-                return;
-            E_SoundFXType type = m_data.SoundFXTOID[_ev.SfxID];
+       
+            E_SoundFXType type = m_data.SoundFXTOID[_sfxID];
             m_soundFXControllers[type].OnPlaySFX();
         }
         #endregion

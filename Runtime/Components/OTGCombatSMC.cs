@@ -54,9 +54,10 @@ namespace OTG.CombatSystem
                 Destroy(this.gameObject);
                 return;
             }
-                
 
             m_currentState.OnStateUpdate(this);
+            
+            //Debug.Log("Current State: "+m_currentState.name+" Grounded: "+Handler_Movement.Comp_CharacterControl.isGrounded);
       
         }
         private void OnAnimatorMove()
@@ -82,9 +83,19 @@ namespace OTG.CombatSystem
         public void OnAnimationEvent(OTGAnimationEvent _event)
         {
             Handler_Animation.UpdateAnimationEvent(_event);
-            Handler_VFX.OnAnimationEvent(_event);
-            Handler_Collision.OnAnimationEvent(_event);
-            Handler_SFX.OnAnimationEventUpdate(_event);
+           
+        }
+        public void OnVFXEvent(OTGVFXIdentification _vfxID)
+        {
+            Handler_VFX.OnVFXEvent(_vfxID);
+        }
+        public void OnSFXEvent(OTGSFXIdentification _sfxID)
+        {
+            Handler_SFX.OnSFXEvent(_sfxID);
+        }
+        public void OnAnimCollisionEvent(OTGHurtColliderID _hurtColliderID)
+        {
+            Handler_Collision.OnAnimHurtColliderEvent(_hurtColliderID);
         }
         public void SetFlaggedForDespawn(bool _value)
         {
