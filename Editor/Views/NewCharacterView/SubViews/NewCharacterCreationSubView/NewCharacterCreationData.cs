@@ -57,7 +57,6 @@ namespace OTG.CombatSystem.Editor
             AddHitBoxCollider();
             AdjustCharacterControllerCapsule();
             SetLayers();
-            AddSFXControllers();
         }
         public void Cleanup()
         {
@@ -203,24 +202,7 @@ namespace OTG.CombatSystem.Editor
             }
             obj.ApplyModifiedProperties();
         }
-        private void AddSFXControllers()
-        {
-            foreach (E_SoundFXType type in Enum.GetValues(typeof(E_SoundFXType)))
-            {
-                GameObject obj = new GameObject();
-                obj.name = "OTGSFXController." + type.ToString();
-
-                OTGSoundFXController ctrl = obj.AddComponent<OTGSoundFXController>();
-                ctrl.GetComponent<AudioSource>().playOnAwake = false;
-
-                SerializedObject sObj = new SerializedObject(ctrl);
-                sObj.FindProperty("m_sfxType").intValue = (int)type;
-                sObj.ApplyModifiedProperties();
-
-                obj.transform.parent = m_characterGameObject.transform;
-                obj.transform.position = Vector3.zero;
-            }
-        }
+        
         private void SetLayers()
         {
             OptionsViewData optionsViewData = OTGCombatEditorUtilis.GetOptionsViewData();

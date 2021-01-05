@@ -10,7 +10,7 @@ namespace OTG.CombatSystem
 
         
         [SerializeField] private WeaponPositionData m_PosData;
-       
+        [SerializeField] private OTGSoundFXController m_sfxController;
 
         private Transform m_transform;
 

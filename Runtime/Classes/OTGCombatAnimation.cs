@@ -59,14 +59,12 @@ namespace OTG.CombatSystem
     [System.Serializable]
     public class SoundFXData
     {
-        [SerializeField] private E_SoundFXType m_sfxType;
         [SerializeField] private OTGSFXIdentification m_id;
         [SerializeField] private AudioClip m_audioClip;
         
 
         public OTGSFXIdentification ID { get { return m_id; } }
         public AudioClip ClipToPlay { get { return m_audioClip; } }
-        public E_SoundFXType SFXType { get { return m_sfxType; } }
     }
     [System.Serializable]
     public class CombatAnimHitCollisionData

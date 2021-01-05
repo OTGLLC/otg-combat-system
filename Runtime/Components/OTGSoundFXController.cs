@@ -7,8 +7,7 @@ namespace OTG.CombatSystem
     public class OTGSoundFXController:MonoBehaviour
     {
         #region Inspector Vars
-        [SerializeField] private E_SoundFXType m_sfxType;
-        
+        [SerializeField] private OTGSFXIdentification m_ID;
         #endregion
 
         #region Fields
@@ -17,7 +16,7 @@ namespace OTG.CombatSystem
         #endregion
 
         #region Properties
-        public E_SoundFXType SFXType { get { return m_sfxType; } }
+        public OTGSFXIdentification ID { get { return m_ID; } }
         #endregion
 
         #region Public API
@@ -55,11 +54,4 @@ namespace OTG.CombatSystem
         #endregion
     }
 
-    public enum E_SoundFXType
-    {
-        WeaponSFX,
-        LocomotionSFX,
-        VocalSFX,
-        ImpactSFX
-    }
 }
